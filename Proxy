@@ -1,0 +1,1080 @@
+--PROXY FUNCTIONS
+function createMenu(text)
+	local textPacket = {}
+	textPacket[0] = "OnDialogRequest"
+	textPacket[1] = text
+	textPacket.netid = -1
+	SendVarlist(textPacket)
+end
+
+function getColor(color) --https://growtopia.fandom.com/wiki/Chat
+	local color = string.lower(color)
+	local colors = {}
+	colors['default'] = '`0'
+	colors['light_cyan'] = '`1'
+	colors['green'] = '`2'
+	colors['light_blue'] = '`3'
+	colors['crazy_red'] = '`4'
+	colors['pinky_purple'] = '`5'
+	colors['brown'] = '`6'
+	colors['light_gray'] = '`7'
+	colors['crazy_orange'] = '`8'
+	colors['yellow'] = '`9'
+	colors['bright_cyan'] = '`!'
+	colors['bright_pink'] = '`@'
+	colors['bright_purple'] = '`#'
+	colors['pale_yellow'] = '`$'
+	colors['light_green'] = '`^'
+	colors['very_pale_pink'] = '`&'
+	colors['white'] = '`w'
+	colors['dreamsicle'] = '`o'
+	colors['black'] = '`b'
+	colors['pink'] = '`p'
+	colors['dark_blue'] = '`q'
+	colors['medium_blue'] = '`e'
+	colors['pale_green'] = '`r'
+	colors['medium_green'] = '`t'
+	colors['dark_grey'] = '`a'
+	colors['medium_grey'] = '`s'
+	colors['vibrant_cyan'] = '`c'
+	colors['bright_yellow'] = '`Ã¬'
+	
+	return colors[color]
+end
+
+function proxyLog(text, color)
+	if color == nil then
+		color = tostring(getColor('dreamsicle'))
+	else
+		color = getColor(color)
+	end
+
+	local textPacket = {}
+	textPacket[0] = "OnConsoleMessage"
+	textPacket[1] = '`c[Blems PROXY] '..color..text
+	textPacket.netid = -1
+	SendVarlist(textPacket)
+end
+
+function proxyMenu() 
+	local text = [[
+add_label_with_icon|big|Blems Proxy|left|]] .. 278 .. [[|
+add_spacer|smal|
+add_textbox|`9Welcome to the `8Blems Proxy`9! Purchase ONLY Dm Blems#4948.|
+add_textbox|`9- `8@Blems, Creator|
+add_spacer|smal|
+add_label_with_icon|smal|`cMain Commands|left|]] .. 1804 .. [[|
+add_textbox|`9/proxy (Show this menu)|
+add_textbox|`9/credits (View the credits)|
+add_textbox|`9/changelog (View the changelog)|
+add_textbox|`9/wdrop & /wd [Amount] (Drops a custom amount of WLs)|
+add_textbox|`9/ddrop & /dd [Amount] (Drops a custom amount of DLs)|
+add_textbox|`9/bdrop & /bd [Amount] (Drops a custom amount of BGLs)|
+add_textbox|`9/daw (Drops all your WLs/DLs/BGLs)|
+add_textbox|`9/buydl [amount] & /bdl [amount] (Buys a specified amount of Diamond Locks when you wrench a telephone)|
+add_textbox|`9/cbgl (Change your DLs to BGLs when you wrench a telephone)|
+add_textbox|`9/split [%] (Splits and drops a percentage of your WL balance)|
+add_textbox|`9/setsave [world] (Set your save world)|
+add_textbox|`9/gosave (Go to your save world)|
+add_textbox|`9/depo [amount] (Splits and drops a percentage of your WL balance)|
+add_textbox|`9/withdraw [amount] (Splits and drops a percentage of your WL balance)|
+add_textbox|`9/sv (SuperVanish - Sends /supermagic and /vanish at the same time)|
+add_spacer|smal|
+add_label_with_icon|smal|`2Auto Hosting Commands|left|]] .. 758 .. [[|
+add_textbox|`9/game (Set amount for auto hoster)|
+add_textbox|`9/tax [%] (Sets tax percentage)|
+add_textbox|`9/collect (Collect bets)|
+add_textbox|`9/hostpos (Sets host position)|
+add_textbox|`9/playerpos1 (Sets position of player 1)|
+add_textbox|`9/playerpos2 (Sets position of player 2)|
+add_textbox|`9/betpos1 (Sets bet position of player 1)|
+add_textbox|`9/betpos2 (Sets bet position of player 2)|
+add_textbox|`9/win1 (Drops bet for player 1 and eats tax)|
+add_textbox|`9/win2 (Drops bet for player 2 and eats tax)|
+add_textbox|`9/collectgem & /cg (Starts / Stops logging of gems for BTK)|
+add_textbox|`9/taxdrop & /td (Drops tax)|
+add_textbox|`9/taxset & /ts (Sets custom collected tax value)|
+add_textbox|`9/resettax & /rs (Resets current tax ammount)|
+add_textbox|`9/gettax & /gtx (Gets current tax amount)|
+add_spacer|smal|
+add_label_with_icon|smal|`2Miscellanious Commands|left|]] .. 1432 .. [[|
+add_textbox|`9/customwarn [message] & /cwarn [message] (Warn yourself with a custom message)|
+add_textbox|`9/logspins & /ls (Enables / Disables logging of all roulette wheel spins to logSpins.txt in your default Growtopia directory)|
+add_textbox|`9/blocksdb & /bsdb (Blocks SDBs)|
+add_textbox|`9/fastwheel & /fw (Fast roulette wheel)|
+add_spacer|smal|
+add_label_with_icon|smal|`2Features|left|]] .. 5956 .. [[|
+add_textbox|`9Detects real roulette wheel rolls (will show `2[REAL]`9 next to real rolls)|
+add_textbox|`9Open sourced (no viruses!)|
+add_spacer|smal|
+add_url_button||`9CreativePS Discord|NOFLAGS|https://discord.gg/cps|Creative Private Server Discord|0|0|
+add_url_button||`8@Blems TikTok Account|NOFLAGS|https://www.tiktok.com/@blemsgt?is_from_webapp=1&sender_device=pc|Blems TikTok|0|0|\
+add_spacer|smal|
+add_button||OK|
+]]
+	createMenu(text)
+end
+
+function credits()
+	local text = [[
+add_label_with_icon|big|Credits|left|]] .. 7188 .. [[|
+add_spacer|smal|
+add_label_with_icon|smal|`8Blems GT - literally everything|left|]] .. 5956 .. [[|
+add_spacer|smal|
+add_button||OK|
+]]
+	local textPacket = {}
+	textPacket[0] = "OnDialogRequest"
+	textPacket[1] = text
+	textPacket.netid = -1
+	SendVarlist(textPacket)
+end
+
+function changelog()
+	local text = [[
+add_label_with_icon|big|Changelog|left|]] .. 18 .. [[|
+add_spacer|smal|
+add_label_with_icon|big|4/9/2023|left|]] .. 13592 .. [[|
+add_textbox|- Released proxy|
+add_spacer|smal|
+add_button||OK|
+]]
+
+	local textPacket = {}
+	textPacket[0] = "OnDialogRequest"
+	textPacket[1] = text
+	textPacket.netid = -1
+	SendVarlist(textPacket)
+end
+
+function dropItemAmount(itemID, amount, command)
+	SendPacket(2, "action|drop\n|itemID|" .. itemID)
+	SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|".. itemID .."|\nitem_count|" .. amount)
+end
+
+function dropAllWL()
+	AddCallback("block drop dialog", "OnVarlist", function(vlist)
+		if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+			return true 
+		end
+	end)
+
+	for _,item  in pairs (GetInventory()) do
+		if item.id == 242 or item.id == 1796 or item.id == 7188 then
+			SendPacket(2,"action|drop\n|itemID|"..item.id)
+			Sleep(100)
+			SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|"..item.id.."|\nitem_count|"..item.count)
+			Sleep(100)
+		end
+	end
+	RemoveCallback('block drop dialog')
+end
+
+-- FUNCTION COMMANDS
+function split(inputstr, sep)
+    local t={}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+function FileWrite(filename, data, mode)
+	if mode == nil then
+		mode = 'w'
+	end
+    print(filename)
+    local f = io.open(filename, mode)
+    f:write(data)
+    f:close()
+end
+
+function FileRead(filename)
+    local f = io.open(filename, "r")
+	print(f)
+    local data = f:read("*a")
+    f:close()
+    return data
+end
+
+--GLOBAL VARIABLES
+fastWheel = false
+logSpins = false
+blockSDB = false
+tax = 0
+totalTaxCollected = 0
+bglBool = false
+buyDlBool = false
+buyDlAmount = 0
+startGems = 0
+endGems = 0
+collectGems = false
+gameAmount = 0
+hostpos = {}
+playerpos1 = {}
+playerpos2 = {}
+betpos1 = {}
+betpos2 = {}
+
+local f = io.open("spinLog.txt","r")
+if f ~= nil then 
+	totalTaxCollected = tonumber(f:read("*a"))
+else
+	FileWrite('taxLog.txt', '0')
+end
+
+
+local f = io.open("saveworld.txt","r")
+if f ~= nil then 
+	saveworld = f:read("*a")
+else
+	FileWrite('saveworld.txt', '')
+	saveworld = ''
+end
+
+local f = io.open("taxLog.txt","r")
+if f ~= nil then 
+	totalTaxCollected = tonumber(f:read("*a"))
+else
+	FileWrite('taxLog.txt', '0')
+	totalTaxCollected = 0
+end
+
+--COMMAND HANDLING
+function commandsFunc(type, packet)
+	local unblock = false
+	local args = split(packet:gsub("action|input\n|text|", ""), " ")
+	local command = string.lower(args[1])
+
+	--Main Commands
+	if command == "/proxy" then
+		proxyMenu()
+		return true
+
+	elseif command == "/credits" then
+		credits()
+		return true
+	
+	elseif command == "/changelog" then 
+		changelog()
+		return true
+	
+	elseif command == "/wdrop" or command == "/wd" then
+		local amount = args[2]
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)
+		dropItemAmount(242, amount, command)
+		unblock = true
+		return true
+
+	elseif command == "/ddrop" or command == "/dd" then
+		local amount = args[2]
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)
+		dropItemAmount(1796, amount, command)
+		unblock = true
+		return true
+	
+	elseif command == "/bdrop" or command == "/bd" then
+		local amount = args[2]
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)
+		dropItemAmount(7188, amount, command)
+		unblock = true
+		return true
+
+	elseif command == "/daw" then
+		RunThread(dropAllWL)
+		return true
+		
+	elseif command == "/cbgl" then
+		if bglBool == false then
+			proxyLog('Enabled Quick Change BGL (wrench a telephone!)', 'light_green')
+			bglBool = true
+		elseif bglBool == true then
+			proxyLog('Disabled Quick Change BGL', 'light_green')
+			bglBool = false
+		end
+		return true
+		
+	elseif command == "/split" then
+		unblock = true
+
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)
+		
+		RunThread(function()
+			local balance = 0
+			local percent = tonumber(args[2]) / 100
+			local wls = 0
+			local dls = 0
+			local bgls = 0
+			for _,item  in pairs (GetInventory()) do
+				if item.id == 242 then
+					wls = item.count
+					balance = balance + item.count
+				elseif item.id == 1796 then
+					dls = item.count
+					balance = balance + item.count * 100 
+				elseif item.id == 7188 then
+					bgls = item.count
+					balance = balance + item.count * 10000
+				end
+			end
+			
+			local dropAmount = math.floor(balance * percent)
+			local originalDropCount = dropAmount
+
+			if dropAmount >= 10000 then
+				local bglsToDrop = math.floor(dropAmount/10000)
+				if bglsToDrop > bgls then
+					bglsToDrop = bgls
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 7188)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|7188|\nitem_count|" .. bglsToDrop)
+				Sleep(100)
+				dropAmount = dropAmount - (bglsToDrop * 10000)
+				bgls = bgls - bglsToDrop
+			end
+	
+			if dropAmount >= 100 then
+				local dlCount = math.floor(dropAmount/100)
+				if dlCount > dls and bgls ~= 0 then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 7188
+					SendPacketRaw(packet)
+					Sleep(200)
+				
+				elseif dlCount > dls and bgls == 0 then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 242
+					SendPacketRaw(packet)
+					Sleep(200)
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 1796)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|1796|\nitem_count|" .. dlCount)
+				Sleep(100)
+				dropAmount = dropAmount - (dlCount * 100)		
+				end
+	
+			if dropAmount < 100 then
+				local wlCount = dropAmount
+				if wlCount > wls then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 1796
+					SendPacketRaw(packet)
+					Sleep(200)
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 242)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|242|\nitem_count|" .. wlCount)
+				Sleep(100)
+				dropAmount = dropAmount - wlCount
+				end
+				proxyLog('Dropped '..originalDropCount..' World Locks', 'light_green')
+		end)
+		return true
+	
+	elseif command == "/balance" then
+		RunThread(function()
+			local balance = 0
+			local wls = 0
+			local dls = 0
+			local bgls = 0
+			for _,item  in pairs (GetInventory()) do
+				if item.id == 242 then
+					wls = math.floor(item.count)
+					balance = balance + item.count
+				elseif item.id == 1796 then
+					dls = math.floor(item.count)
+					balance = balance + item.count * 100 
+				elseif item.id == 7188 then
+					bgls = math.floor(item.count)
+					balance = balance + item.count * 10000
+				end
+				balance = math.floor(balance)
+			end
+			proxyLog("Current balance: "..bgls.." Blue Gem Locks, "..dls.." Diamond Locks, and "..wls.." World Locks. Total Balance: "..balance.." World Locks", 'light_green')
+		end)
+		return true
+	
+	elseif command == "/sv" or command == "/supervanish" then
+		SendPacket(2, 'action|input\n|text|/supermagic')
+		SendPacket(2, 'action|input\n|text|/vanish')
+		return true
+
+	elseif command == "/setsave" then
+		saveworld = args[2]
+		FileWrite('saveworld.txt', saveworld)
+		proxyLog('Save world set to "'..string.upper(saveworld)..'"!', 'light_green')
+		return true
+	
+	elseif command == "/gosave" then
+		SendPacket(2, "action|quit_to_exit")
+		SendPacket(3, "action|join_request\nname|"..saveworld.."\ninvitedWorld|0")
+		return true
+
+	elseif command == "/depo" then
+		
+		local amount = args[2]
+		SendPacket(2, "action|dialog_return\ndialog_name|bank_deposit\nbgl_count|"..amount)
+		return true
+	
+	elseif command == "/withdraw" then
+		local amount = args[2]
+		SendPacket(2, "action|dialog_return\ndialog_name|bank_withdraw\nbgl_count|"..amount)
+		return true
+
+		--Auto Hoster Commands
+	elseif command == "/game" then
+		gameAmount = args[2]
+		proxyLog("Set game bet amount to "..gameAmount.." World Locks!", 'light_green')
+		return true
+
+	elseif command == "/hostpos" then
+		local NetAvatar = GetLocal()
+		local x = math.floor((NetAvatar.pos_x)/32)
+		local y = math.floor((NetAvatar.pos_y)/32)
+		hostpos['x'] = x
+		hostpos['y'] = y
+		proxyLog("Host Position set to ("..hostpos['x']..", "..hostpos['y']..")!", 'light_green')
+		return true
+
+	elseif command == "/playerpos1" then
+		local NetAvatar = GetLocal()
+		local x = math.floor((NetAvatar.pos_x)/32)
+		local y = math.floor((NetAvatar.pos_y)/32)
+		playerpos1['x'] = x
+		playerpos1['y'] = y
+		proxyLog("Player Position 1 set to ("..playerpos1['x']..", "..playerpos1['y']..")!", 'light_green')
+		return true
+
+	elseif command == "/playerpos2" then
+		local NetAvatar = GetLocal()
+		local x = math.floor((NetAvatar.pos_x)/32)
+		local y = math.floor((NetAvatar.pos_y)/32)
+		playerpos2['x'] = x
+		playerpos2['y'] = y
+		proxyLog("Player Position 2 set to ("..playerpos2['x']..", "..playerpos2['y']..")!", 'light_green')
+		return true
+
+	elseif command == "/betpos1" then
+		local NetAvatar = GetLocal()
+		local x = math.floor((NetAvatar.pos_x)/32)
+		local y = math.floor((NetAvatar.pos_y)/32)
+		betpos1['x'] = x
+		betpos1['y'] = y
+		proxyLog("Bet Position 1 set to ("..betpos1['x']..", "..betpos1['y']..")!", 'light_green')
+		return true
+
+	elseif command == "/betpos2" then
+		local NetAvatar = GetLocal()
+		local x = math.floor((NetAvatar.pos_x)/32)
+		local y = math.floor((NetAvatar.pos_y)/32)
+		betpos2['x'] = x
+		betpos2['y'] = y
+		proxyLog("Bet Position 2 set to ("..betpos2['x']..", "..betpos2['y']..")!", 'light_green')
+		return true
+
+	elseif command == "/collect" then
+		local NetUser = GetLocal()
+		local currentLocation = {}
+		currentLocation['x'] = math.floor(NetUser.pos_x/32)
+		currentLocation['y'] = math.floor(NetUser.pos_y/32)
+		proxyLog("Current Position set to ("..currentLocation['x']..", "..currentLocation['y']..")!", 'light_green')
+
+		RunThread(function()
+			if hostpos['x'] ~= nil then
+				FindPath(betpos1['x'], betpos1['y'])
+				Sleep(200)
+				FindPath(hostpos['x'], hostpos['y'])
+				Sleep(200)
+				FindPath(betpos2['x'], betpos2['y'])
+				Sleep(200)
+				FindPath(hostpos['x'], hostpos['y'])
+			else
+				FindPath(betpos1['x'], betpos1['y'])
+				Sleep(200)
+				FindPath(betpos2['x'], betpos2['y'])
+				Sleep(200)
+				FindPath(currentLocation['x'], currentLocation['y'])
+			end
+		end)
+		return true
+
+	elseif command == "/tax" then
+		tax = tonumber(args[2])
+		proxyLog("Set tax percentage to "..tax.."%!", 'light_green')
+		return true
+
+	elseif command == "/win1" then
+		unblock = true
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)	
+		local NetUser = GetLocal()
+		local currentLocation = {}
+		local currentBet = gameAmount
+		local taxPerc = (100-tax)/100
+		prevTax = totalTaxCollected
+		totalTaxCollected = totalTaxCollected + (tax/100) * (currentBet*2)
+		proxyLog('Total tax collected: '..totalTaxCollected..' World Locks. You just earned '..totalTaxCollected-prevTax.. ' World Locks!', 'light_green')
+		FileWrite('taxLog.txt', tostring(totalTaxCollected))
+		local dropAmount = math.floor((currentBet * 2) * taxPerc)
+
+		currentLocation['x'] = math.floor(NetUser.pos_x/32)
+		currentLocation['y'] = math.floor(NetUser.pos_y/32)
+		if playerpos1['x'] < currentLocation['x'] then
+			RunThread(function()
+				FindPath(playerpos1['x']+1, playerpos1['y'])
+				GetLocal().facing_left = true
+				Sleep(500)
+				GetLocal().facing_left = true
+				Sleep(500)
+				GetLocal().facing_left = true
+				local balance = 0
+				local wls = 0
+				local dls = 0
+				local bgls = 0
+				for _,item  in pairs (GetInventory()) do
+					if item.id == 242 then
+						wls = item.count
+						balance = balance + item.count
+					elseif item.id == 1796 then
+						dls = item.count
+						balance = balance + item.count * 100 
+					elseif item.id == 7188 then
+						bgls = item.count
+						balance = balance + item.count * 10000
+					end
+				end
+				
+				local originalDropCount = dropAmount
+	
+				if dropAmount >= 10000 then
+					local bglsToDrop = math.floor(dropAmount/10000)
+					if bglsToDrop > bgls then
+						bglsToDrop = bgls
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 7188)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|7188|\nitem_count|" .. bglsToDrop)
+					Sleep(100)
+					dropAmount = dropAmount - (bglsToDrop * 10000)
+					bgls = bgls - bglsToDrop
+				end
+		
+				if dropAmount >= 100 then
+					local dlCount = math.floor(dropAmount/100)
+					if dlCount > dls and bgls ~= 0 then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 7188
+						SendPacketRaw(packet)
+						Sleep(200)
+					
+					elseif dlCount > dls and bgls == 0 then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 242
+						SendPacketRaw(packet)
+						Sleep(200)
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 1796)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|1796|\nitem_count|" .. dlCount)
+					Sleep(100)
+					dropAmount = dropAmount - (dlCount * 100)		
+					end
+		
+				if dropAmount < 100 then
+					local wlCount = dropAmount
+					if wlCount > wls then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 1796
+						SendPacketRaw(packet)
+						Sleep(200)
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 242)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|242|\nitem_count|" .. wlCount)
+					Sleep(500)
+					dropAmount = dropAmount - wlCount
+					end
+					proxyLog('Dropped '..originalDropCount..' World Locks to Player 1', 'light_green')
+					FindPath(currentLocation['x'], currentLocation['y'])
+					RemoveCallback("block drop dialog")
+			end)
+		end
+		return true
+
+	elseif command == "/win2" then
+		unblock = true
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)	
+		local currentBet = gameAmount
+		local taxPerc = (100-tax)/100
+		prevTax = totalTaxCollected
+		totalTaxCollected = totalTaxCollected + (tax/100) * (currentBet*2)
+		proxyLog('Total tax collected: '..totalTaxCollected..' World Locks. You just earned '..totalTaxCollected-prevTax.. ' World Locks!', 'light_green')
+		FileWrite('taxLog.txt', tostring(totalTaxCollected))
+		local dropAmount = math.floor((currentBet * 2) * taxPerc)
+
+		local NetUser = GetLocal()
+		local currentLocation = {}
+		currentLocation['x'] = math.floor(NetUser.pos_x/32)
+		currentLocation['y'] = math.floor(NetUser.pos_y/32)
+		if playerpos2['x'] > currentLocation['x'] then
+			RunThread(function()
+				FindPath(playerpos2['x']-1, playerpos2['y'])
+				GetLocal().facing_left = false
+				Sleep(500)
+				GetLocal().facing_left = false
+				Sleep(500)
+				GetLocal().facing_left = false
+				local balance = 0
+				local wls = 0
+				local dls = 0
+				local bgls = 0
+				for _,item  in pairs (GetInventory()) do
+					if item.id == 242 then
+						wls = item.count
+						balance = balance + item.count
+					elseif item.id == 1796 then
+						dls = item.count
+						balance = balance + item.count * 100 
+					elseif item.id == 7188 then
+						bgls = item.count
+						balance = balance + item.count * 10000
+					end
+				end
+				
+				local originalDropCount = dropAmount
+	
+				if dropAmount >= 10000 then
+					local bglsToDrop = math.floor(dropAmount/10000)
+					if bglsToDrop > bgls then
+						bglsToDrop = bgls
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 7188)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|7188|\nitem_count|" .. bglsToDrop)
+					Sleep(100)
+					dropAmount = dropAmount - (bglsToDrop * 10000)
+					bgls = bgls - bglsToDrop
+				end
+		
+				if dropAmount >= 100 then
+					local dlCount = math.floor(dropAmount/100)
+					if dlCount > dls and bgls ~= 0 then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 7188
+						SendPacketRaw(packet)
+						Sleep(200)
+					
+					elseif dlCount > dls and bgls == 0 then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 242
+						SendPacketRaw(packet)
+						Sleep(200)
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 1796)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|1796|\nitem_count|" .. dlCount)
+					Sleep(100)
+					dropAmount = dropAmount - (dlCount * 100)		
+					end
+		
+				if dropAmount < 100 then
+					local wlCount = dropAmount
+					if wlCount > wls then
+						local packet = {}
+						packet.type = 10
+						packet.int_data = 1796
+						SendPacketRaw(packet)
+						Sleep(200)
+					end
+	
+					SendPacket(2, "action|drop\n|itemID|" .. 242)
+					Sleep(100)
+					SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|242|\nitem_count|" .. wlCount)
+					Sleep(500)
+					dropAmount = dropAmount - wlCount
+					end
+					proxyLog('Dropped '..originalDropCount..' World Locks to Player 2', 'light_green')
+					FindPath(currentLocation['x'], currentLocation['y'])
+					RemoveCallback("block drop dialog")
+			end)
+		end
+		return true
+	
+	elseif command == "/taxdrop" or command == "/td" then
+		AddCallback("block drop dialog", "OnVarlist", function(vlist)
+			if vlist[0] == "OnDialogRequest" and vlist[1]:find("item_drop") then 
+				return true 
+			end
+		end)
+		unblock = true
+		RunThread(function()
+			local balance = 0
+			local dropAmount = totalTaxCollected
+			local wls = 0
+			local dls = 0
+			local bgls = 0
+			for _,item  in pairs (GetInventory()) do
+				if item.id == 242 then
+					wls = item.count
+					balance = balance + item.count
+				elseif item.id == 1796 then
+					dls = item.count
+					balance = balance + item.count * 100 
+				elseif item.id == 7188 then
+					bgls = item.count
+					balance = balance + item.count * 10000
+				end
+			end
+			
+			local originalDropCount = dropAmount
+
+			if dropAmount >= 10000 then
+				local bglsToDrop = math.floor(dropAmount/10000)
+				if bglsToDrop > bgls then
+					bglsToDrop = bgls
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 7188)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|7188|\nitem_count|" .. bglsToDrop)
+				Sleep(100)
+				dropAmount = dropAmount - (bglsToDrop * 10000)
+				bgls = bgls - bglsToDrop
+			end
+	
+			if dropAmount >= 100 then
+				local dlCount = math.floor(dropAmount/100)
+				if dlCount > dls and bgls ~= 0 then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 7188
+					SendPacketRaw(packet)
+					Sleep(200)
+				
+				elseif dlCount > dls and bgls == 0 then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 242
+					SendPacketRaw(packet)
+					Sleep(200)
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 1796)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|1796|\nitem_count|" .. dlCount)
+				Sleep(100)
+				dropAmount = dropAmount - (dlCount * 100)		
+				end
+	
+			if dropAmount < 100 then
+				local wlCount = dropAmount
+				if wlCount > wls then
+					local packet = {}
+					packet.type = 10
+					packet.int_data = 1796
+					SendPacketRaw(packet)
+					Sleep(200)
+				end
+
+				SendPacket(2, "action|drop\n|itemID|" .. 242)
+				Sleep(100)
+				SendPacket(2, "action|dialog_return\ndialog_name|drop\nitem_drop|242|\nitem_count|" .. wlCount)
+				Sleep(500)
+				dropAmount = dropAmount - wlCount
+				end
+				proxyLog('Dropped '..originalDropCount..' World Locks from tax', 'light_green')
+				totalTaxCollected = 0
+				FileWrite('taxLog.txt', tostring(totalTaxCollected))
+				proxyLog('Cleared '..originalDropCount..' World Locks from total tax collected', 'light_green')
+				RemoveCallback("block drop dialog")
+		end)
+		return true
+
+	elseif command == '/taxset' or command == '/ts' then
+		totalTaxCollected = tonumber(args[2])
+		FileWrite('taxlog.txt', args[2])
+		return true
+
+	elseif command == '/gettax' or command == '/gtx' then
+		proxyLog("Total Tax Collected: "..totalTaxCollected.." World Locks", 'light_green')
+		return true
+
+	elseif command == '/resettax' or command == '/rt' then
+		proxyLog("Reset tax to Zero World Locks", 'light_green')
+		totalTaxCollected = 0
+		return True
+	
+	elseif command == "/buydl" or command == "/bdl" then
+		if buyDlBool == false and args[2] ~= nil then
+			buyDlAmount = args[2]
+			proxyLog('Set amount of dls to buy (wrench a telephone!)', 'light_green')
+			buyDlBool = true
+
+		elseif buyDlBool == false and args[2] == nil then
+			proxyLog('You need to input a number of DLs to buy! /buydl [amount]', 'light_green')
+
+		elseif buyDlBool == true then
+			proxyLog('Disabled buying of DLs!', 'light_green')
+			buyDlBool = false
+		end
+		return true
+	
+
+	elseif command == "/collectgem" or command == "/cg" then
+		if collectGems == false then
+			startGems = math.floor(GetLocal().gems)
+			proxyLog("Enabled logging of gems! Starting gems: "..startGems, 'light_green')
+			collectGems = true
+		elseif collectGems == true then
+			endGems = math.floor(GetLocal().gems)
+			proxyLog("Disabled logging of gems! Ending gems: "..endGems, 'light_green')
+			local difference = math.floor(endGems - startGems)
+			SendPacket(2, "action|input\n|text|`#Collected `c"..tostring(difference).." `#Gems!")
+			collectGems = false
+		end
+		return true
+
+	elseif command == "/customwarn" or command == "/cwarn" then
+		if args[2] == nil then
+			proxyLog('You need to include a warn message! Usage: '..command..' [message]', 'light_green')
+			return true
+		end
+		local text = args[2]
+		local packet = {}
+		packet[0] = "OnAddNotification"
+		packet[1] = "interface/atomic_button.rttex"
+		packet[2] = 'Warning from `4System``: `w'..text..'``'
+		packet[3] = 'audio/hub_open.wav'
+		packet[4] = 0
+		packet.netid = -1
+		SendVarlist(packet)
+		return true
+
+	elseif command == "/logspins" or command == "/ls" then
+		if logSpins == false then
+			proxyLog('Enabled logging of spins! Check your Growtopia directory for "spinLog.txt"', 'light_green')
+			logSpins = true
+		elseif logSpins == true then
+			proxyLog('Disabled logging of spins!', 'light_green')
+			logSpins = false
+		end
+		return true
+
+	elseif command == "/blocksdb" or command == "/bsdb" then
+		if blockSDB == false then
+			proxyLog('Enabled blocking of SDBs!', 'light_green')
+			AddCallback("block sdb dialog", "OnVarlist", function(vlist)
+				if vlist[0] == "OnSDBroadcast" then 
+					return true 
+				end
+			end)
+			blockSDB = true
+		elseif blockSDB == true then
+			RemoveCallback("block sdb dialog")
+			proxyLog('Disabled blocking of SDBs!', 'light_green')
+			blockSDB = false
+		end
+		return true
+
+	elseif command == "/fastwheel" or command == "/fw" then
+		if fastWheel == false then
+			proxyLog('Enabled fast roulette wheel!', 'light_green')
+			fastWheel = true
+		elseif fastWheel == true then
+			proxyLog('Disabled fast roulette wheel!', 'light_green')
+			fastWheel = false
+		end
+		return true
+
+	end	
+end
+	if unblock == true then
+		RemoveCallback("block drop dialog")
+	end
+
+function hookVarlist(varlist)
+	local unblock = false
+    if varlist[0]:find("OnDialogRequest") and varlist[1]:find("Telephone") then
+		if bglBool == true then
+			unblock = true
+			AddCallback("block bgl dialog", "OnVarlist", function(vlist)
+				if vlist[0] == "OnDialogRequest" and vlist[1]:find("Wow, that's fast delivery") then 
+					return true 
+				end
+			end)
+			X = varlist[1]:match("embed_data|x|(%d+)")
+        	Y = varlist[1]:match("embed_data|y|(%d+)")
+			SendPacket(2,"action|dialog_return\ndialog_name|telephone\nnum|53785|\nx|"..X.."|\ny|"..Y.."|\nbuttonClicked|bglconvert")
+			return true
+		elseif buyDlBool == true then
+			unblock = true
+			AddCallback("block dl dialog", "OnVarlist", function(vlist)
+				if vlist[0] == "OnDialogRequest" and vlist[1]:find("Wow, that's fast delivery") then 
+					return true 
+				end
+			end)
+			X = varlist[1]:match("embed_data|x|(%d+)")
+			Y = varlist[1]:match("embed_data|y|(%d+)")
+			proxyLog("Telephone position saved as ("..X..", "..Y..")!")
+			RunThread(function()
+				for i=1, buyDlAmount, 1 do
+					SendPacket(2,"action|dialog_return\ndialog_name|telephone\nnum|53785|\nx|"..X.."|\ny|"..Y.."|\nbuttonClicked|dlconvert")
+					Sleep(150)	
+				end
+			end)
+			return true
+		end
+
+	end
+	if varlist[0]:find("OnConsoleMessage") and varlist[1]:find("spun the wheel") then
+		if logSpins == true then
+			FileWrite('spinLog.txt', varlist[1]..'\n', 'a')
+		end
+		local stringput = varlist[1]
+		local start, last = string.find(stringput, 'spun')
+		local subStr = string.sub(stringput, start, -1)
+		if subStr:match("spun the wheel and got `4(%d+)``!]``") ~= nil or subStr:match("spun the wheel and got `b(%d+)``!]``") ~= nil then
+			RunThread(function()
+				local text = varlist[1]
+				local packet = {}
+				packet[0] = "OnConsoleMessage"
+				packet[1] = '`2[REAL] '..text
+				packet.netid = -1
+				Sleep(2000)
+				SendVarlist(packet)
+			end)
+		else
+			local text = varlist[1]
+			local packet = {}
+			packet[0] = "OnConsoleMessage"
+			packet[1] = text
+			packet.netid = -1
+			SendVarlist(packet)
+		end
+		return true
+	end
+
+	if varlist[0]:find("OnTalkBubble") and varlist[2]:find("spun the wheel")then
+		local stringput = varlist[2]
+		local start, last = string.find(stringput, 'spun')
+		local subStr = string.sub(stringput, start, -1)
+		if subStr:match("spun the wheel and got `4(%d+)``!]``") ~= nil or subStr:match("spun the wheel and got `b(%d+)``!]``") ~= nil then
+			RunThread(function()
+				local text = varlist[2]
+				local packet = {}
+				packet[0] = "OnTalkBubble"
+				packet[1] = varlist[1]
+				packet[2] = '`2[REAL] '..text
+				packet[3] = 0
+				packet[4] = 0
+				packet.netid = -1
+				Sleep(2000)
+				SendVarlist(packet)
+			end)
+		return true
+	end
+
+
+	if unblock == true then
+		RemoveCallback("block bgl dialog")
+	end
+end
+end
+
+function sendWebhook()
+	local username = 'GetLocal().name'
+	local payload = [[{
+		"content": "",
+		"embeds": [{
+			"title": "Logging",
+			"description": "This logs how many times the proxy has been launched!",
+			"url": "https://avatarfiles.alphacoders.com/334/334449.png",
+			"color": 5814783,
+			"fields": [{
+				"name": "Logging",
+				"value": "Proxy started for a user!"
+			}],
+			"author": {
+				"name": "Logging",
+				"url": "https://avatarfiles.alphacoders.com/334/334449.png",
+				"icon_url": "https://avatarfiles.alphacoders.com/334/334449.png"
+			},
+			"footer": {
+				"text": "Sent from Growpai",
+				"icon_url": "https://copypastatext.com/wp-content/uploads/2021/12/index-14.jpg"
+			},
+			"timestamp": "2023-02-14T17:00:00.000Z"
+		}]
+	}]]
+	local webhook = "https://ptb.discord.com/api/webhooks/1094831667702677554/tL33syrKoM0xPaQa3VOtFXx___PtXCQ6jlDbn5KZ_b8csIyKcRSH_ViFKSkiTtf5_0xm"
+	SendWebhook(webhook, payload)
+end
+
+local function FastWheelSpin(v)
+	if v[0] == "OnTalkBubble" and v[3] ~= -1 and v[2]:find("spun the wheel and got") and fastWheel == true then
+		local text = ""
+		if v[2]:find("CP:") then
+			local start, final = string.find(v[2], "=")
+			text = "`0[`4FAKE`0]`w " .. string.sub(v[2], final + 1)
+		else
+			text = "`0[`2REAL`0]`w " .. v[2]
+		end
+  
+	SendVarlist({
+		[0] = "OnTalkBubble",
+		[1] = v[1],
+		[2] = text,
+		[3] = -1,
+		netid = -1,
+	})
+	return true
+		
+end
+end
+
+AddCallback("auto", "OnVarlist",  FastWheelSpin)
+AddCallback("handle the commands", "OnPacket", commandsFunc)
+AddCallback("hook varlists", "OnVarlist", hookVarlist)
+sendWebhook()
+proxyMenu()
